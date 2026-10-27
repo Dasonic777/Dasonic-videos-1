@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Dasonic777 — Watch</title>
+<style>
+:root{--p:#6d3df0;--bg:#f6f6ff;--tx:#1d1b2e;--mut:#6b6a80;--bd:#e3e1f5}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5}
+a{color:var(--p);text-decoration:none}
+header{background:#fff;border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:5}
+.nav{max-width:1100px;margin:auto;display:flex;align-items:center;gap:18px;padding:12px 20px;flex-wrap:wrap}
+.logo{font-weight:800;font-size:20px;color:var(--p)}
+.nav a.l{color:var(--tx);font-size:14px;padding:4px 10px;border-radius:8px}
+.nav a.l.act{background:#ece8ff;color:var(--p)}
+.nav .sp{flex:1}
+.lang{border:1px solid var(--bd);border-radius:8px;padding:5px 12px;font-size:13px}
+main{max-width:1100px;margin:auto;padding:30px 20px}
+h1{font-size:32px;margin:0 0 8px}
+h2{font-size:22px;margin:40px 0 6px}
+.mut{color:var(--mut);font-size:14px}
+.player{background:#fff;border:1px solid var(--bd);border-radius:14px;overflow:hidden;box-shadow:0 4px 20px #6d3df015;margin-top:18px}
+.screen{position:relative;background:#000;aspect-ratio:16/9}
+.screen video,.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.ptitle{position:absolute;top:12px;left:16px;color:#fff;font-weight:700;z-index:2;pointer-events:none;text-shadow:0 1px 4px #000}
+.bar{display:flex;gap:10px;padding:12px}
+.bar input{flex:1;padding:10px 12px;border:1px solid var(--bd);border-radius:8px;font-size:14px;min-width:0}
+.btn{background:var(--p);color:#fff;border:0;border-radius:8px;padding:10px 18px;font-weight:600;cursor:pointer}
+.chips{display:flex;gap:8px;padding:0 12px 14px;flex-wrap:wrap}
+.chip{border:1px solid var(--bd);background:#fff;border-radius:999px;padding:5px 14px;font-size:12px;cursor:pointer}
+.chip:first-child{background:var(--p);color:#fff;border-color:var(--p)}
+#src{padding:0 14px 12px;font-size:13px;display:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-top:14px}
+.card{background:#fff;border:1px solid var(--bd);border-radius:12px;overflow:hidden;cursor:pointer}
+.card h3{margin:0 0 4px;font-size:15px}
+.card p{margin:0 0 8px;font-size:13px;color:var(--mut)}
+.tag{display:inline-block;font-size:11px;background:#e7f7ee;color:#1a7f45;border-radius:6px;padding:2px 8px}
+.thumb{aspect-ratio:16/9;background:#0e1030;display:flex;align-items:center;justify-content:center}
+.play{width:42px;height:42px;border-radius:50%;background:var(--p);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px}
+.in{padding:12px 14px}
+</style>
+</head>
+<body>
+<header><div class="nav">
+  <span class="logo">Dasonic777</span>
+  <a class="l" href="#">Inicio</a><a class="l" href="#">Países y regiones</a><a class="l" href="#">Categorías</a>
+  <a class="l" href="#">Popular</a><a class="l" href="#">Gratis y legal</a><a class="l act" href="#">Watch</a>
+  <a class="l" href="#">Comparar</a><a class="l" href="#">Guías</a><a class="l" href="#">Nosotros</a>
+  <span class="sp"></span><span class="lang">🌐 Auto ▾</span>
+</div></header>
+
+<main>
+<h1>Watch Free &amp; Legal Video In-Page</h1>
+<p class="mut">Pega un enlace de YouTube, Vimeo, Dailymotion, TED, Internet Archive, PeerTube o un archivo .mp4, o elige una muestra.</p>
+
+<div class="player">
+  <div class="screen" id="screen"><div class="ptitle" id="ptitle">Big Buck Bunny</div>
+    <video id="v" controls preload="metadata" src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"></video>
+  </div>
+  <div class="bar"><input id="url" placeholder="Pega aquí el enlace del vídeo…"><button class="btn" id="go">Load &amp; Play</button></div>
+  <div id="src"></div>
+  <div class="chips" id="chips"></div>
+</div>
+
+<h2>🎬 Sample Library</h2>
+<div class="grid" id="lib"></div>
+</main>
+
+<script>
+const B="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/";
+const LIB=[
+ {t:"Big Buck Bunny",m:"Blender Foundation · 2008",f:B+"BigBuckBunny.mp4"},
+ {t:"Sintel",m:"Blender Foundation · 2010",f:B+"Sintel.mp4"},
+ {t:"Tears of Steel",m:"Blender Foundation · 2012",f:B+"TearsOfSteel.mp4"},
+ {t:"Elephants Dream",m:"Blender Foundation · 2006",f:B+"ElephantsDream.mp4"}
+];
+const screen=document.getElementById("screen"),title=document.getElementById("ptitle"),src=document.getElementById("src");
+function clear(){screen.querySelectorAll("video,iframe").forEach(e=>e.remove());src.style.display="none"}
+function playFile(f,name){clear();title.textContent=name;
+  const v=document.createElement("video");v.controls=true;v.autoplay=true;v.src=f;screen.appendChild(v);
+  window.scrollTo({top:0,behavior:"smooth"})}
+function playEmbed(e,name,orig){clear();title.textContent=name;
+  const i=document.createElement("iframe");
+  i.src=e;i.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+  i.referrerPolicy="strict-origin-when-cross-origin";i.allowFullscreen=true;screen.appendChild(i);
+  src.innerHTML='¿No carga? <a href="'+orig+'" target="_blank" rel="noopener">Abrir en '+name+' ↗</a>';
+  if(location.protocol==="file:")src.innerHTML+=' · ⚠️ Estás abriendo el archivo directamente (file://): YouTube da error 153. Ábrelo con <b>iniciar.bat</b> (http://localhost:8080).';
+  src.style.display="block";
+  window.scrollTo({top:0,behavior:"smooth"})}
+function parse(u){
+  u=u.trim();let m;
+  if(m=u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([\w-]{11})/))
+    return{e:"https://www.youtube.com/embed/"+m[1]+"?autoplay=1&rel=0&playsinline=1",n:"YouTube"};
+  if(m=u.match(/vimeo\.com\/(?:video\/)?(\d+)/))return{e:"https://player.vimeo.com/video/"+m[1]+"?autoplay=1",n:"Vimeo"};
+  if(m=u.match(/dailymotion\.com\/video\/(\w+)/))return{e:"https://www.dailymotion.com/embed/video/"+m[1]+"?autoplay=1",n:"Dailymotion"};
+  if(m=u.match(/archive\.org\/(?:details|embed)\/([^\/?#]+)/))return{e:"https://archive.org/embed/"+m[1],n:"Internet Archive"};
+  if(/ted\.com\/talks\//.test(u))return{e:u.replace("www.ted.com/talks/","embed.ted.com/talks/"),n:"TED"};
+  if(/\/(videos\/watch|w)\//.test(u))return{e:u.replace("/videos/watch/","/videos/embed/").replace("/w/","/videos/embed/"),n:"PeerTube"};
+  if(/\.(mp4|webm|ogv|mov)(\?.*)?$/i.test(u))return{f:u,n:"Video"};
+  return null}
+document.getElementById("go").onclick=()=>{
+  const raw=document.getElementById("url").value,r=parse(raw);
+  if(!r){alert("Enlace no compatible.");return}
+  r.e?playEmbed(r.e,r.n,raw.trim()):playFile(r.f,r.n)};
+document.getElementById("url").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("go").click()});
+const chips=document.getElementById("chips"),lib=document.getElementById("lib");
+LIB.forEach(x=>{
+  const c=document.createElement("span");c.className="chip";c.textContent="Blender: "+x.t;c.onclick=()=>playFile(x.f,x.t);chips.appendChild(c);
+  const d=document.createElement("div");d.className="card";
+  d.innerHTML='<div class="thumb"><div class="play">▶</div></div><div class="in"><h3>'+x.t+'</h3><p>'+x.m+'</p><span class="tag">CC-BY 3.0</span></div>';
+  d.onclick=()=>playFile(x.f,x.t);lib.appendChild(d)});
+</script>
+</body>
+</html>
